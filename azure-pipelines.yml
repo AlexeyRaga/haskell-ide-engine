@@ -16,6 +16,9 @@ jobs:
     displayName: First Job
     container: linux
     steps:
+    - script: git submodule sync --recursive && git submodule update --init --recursive
+      displayName: 'Checking out submodules'
+
     - script: cabal new-update
       displayName: 'Updating Hackage indices'
     
