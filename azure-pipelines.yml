@@ -9,7 +9,7 @@ trigger:
 strategy:
   matrix:
     linux:
-      imageName: 'alanz/haskell-hie-ci'
+      imageName: alanz/haskell-hie-ci
 
 pool:
   vmImage: $(imageName)
