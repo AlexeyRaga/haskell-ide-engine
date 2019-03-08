@@ -9,13 +9,16 @@ trigger:
 resources:
   containers:
   - container: linux
-    image: alanz/haskell-hie-ci
+    image: quay.io/haskell_works/ghc-8.4.4
 
 jobs:
   - job:
     displayName: First Job
     container: linux
     steps:
-    - script: echo Hello, world!
-      displayName: 'Run a one-line script'
+    - script: cabal new-update
+      displayName: 'Updating Hackage indices'
+    
+    - script: cabal new-build
+      displayName: 'Build HIE'
 
