@@ -6,22 +6,22 @@
 trigger:
 - master
 
-resources:
-  containers:
-  - container: linux
-    image: quay.io/haskell_works/ghc-8.4.4
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-16.04'
+    mac:
+      imageName: 'macos-10.13'
+    windows:
+      imageName: 'vs2017-win2016'
 
-jobs:
-  - job:
-    displayName: First Job
-    container: linux
-    steps:
-    - script: git submodule sync --recursive && git submodule update --init --recursive
-      displayName: 'Checking out submodules'
+pool:
+  vmImage: $(imageName)
 
-    - script: cabal new-update
-      displayName: 'Updating Hackage indices'
-    
-    - script: cabal new-build
-      displayName: 'Build HIE'
+steps:
+  - script: curl -sSL https://get.haskellstack.org/ | sh
+    displayName: 'Setting up Stack'
+
+  - script: make hie-8.4.4
+    display: 'Build HIR for GHC 8.4.4'
 
