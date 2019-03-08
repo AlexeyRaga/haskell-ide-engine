@@ -6,19 +6,16 @@
 trigger:
 - master
 
-strategy:
-  matrix:
-    linux:
-      imageName: alanz/haskell-hie-ci
+resources:
+  containers:
+  - container: linux
+    image: alanz/haskell-hie-ci
 
-pool:
-  vmImage: $(imageName)
+jobs:
+  - job:
+    displayName: First Job
+    container: linux
+    steps:
+    - script: echo Hello, world!
+      displayName: 'Run a one-line script'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
