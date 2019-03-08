@@ -23,5 +23,5 @@ steps:
     displayName: 'Setting up Stack'
 
   - script: make hie-8.4.4
-    display: 'Build HIR for GHC 8.4.4'
+    displayName: 'Build HIR for GHC 8.4.4'
 
