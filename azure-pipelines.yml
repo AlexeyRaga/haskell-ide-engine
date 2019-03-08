@@ -19,6 +19,9 @@ pool:
   vmImage: $(imageName)
 
 steps:
+  - script: mkdir -p ~/.local/bin
+    displayName: 'Create local bin folder'
+
   - script: curl -sSL https://get.haskellstack.org/ | sh
     displayName: 'Setting up Stack'
 
