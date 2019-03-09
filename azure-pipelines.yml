@@ -24,14 +24,11 @@ steps:
   - script: mkdir -p ~/.local/bin
     displayName: 'Create local bin folder'
 
-  - script: |
-      echo ##vso[task.prependpath]$(HOME)/.local/bin
-      echo $(PATH)
-      env
-
   - script: curl -sSL https://get.haskellstack.org/ | sh
     displayName: 'Setting up Stack'
 
-  - script: make hie-8.4.4
+  - script: |
+      export PATH=$(HOME)/.local/bin:$(PATH)
+      make hie-8.4.4
     displayName: 'Build HIR for GHC 8.4.4'
 
