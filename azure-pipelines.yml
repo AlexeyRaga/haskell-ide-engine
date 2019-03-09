@@ -6,6 +6,9 @@
 trigger:
 - master
 
+# variables:
+#   - PATH: $(PATH):
+
 strategy:
   matrix:
     linux:
@@ -21,6 +24,10 @@ pool:
 steps:
   - script: mkdir -p ~/.local/bin
     displayName: 'Create local bin folder'
+
+  - script: |
+      echo "##vso[task.setvariable variable=PATH]$(PATH):$(HOME)/.local.bin"
+      echo $(PATH)
 
   - script: curl -sSL https://get.haskellstack.org/ | sh
     displayName: 'Setting up Stack'
