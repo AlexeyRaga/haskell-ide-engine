@@ -1,0 +1,36 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-16.04'
+    mac:
+      imageName: 'macos-10.13'
+    windows:
+      imageName: 'vs2017-win2016'
+
+# Agent.HomeDirectory
+
+pool:
+  vmImage: $(imageName)
+
+steps:
+  - script: mkdir -p ~/.local/bin
+    displayName: 'Create local bin folder'
+    condition: and(succeeded(), ne(variables['Agent.OS'], 'Windows_NT'))
+
+  - script: curl -sSL https://get.haskellstack.org/ | sh
+    displayName: 'Setting up Stack'
+
+  - script: |
+      export PATH=$(HOME)/.local/bin:$(PATH)
+      make hie-8.4.4
+    displayName: 'Build HIR for GHC 8.4.4'
+    
+
