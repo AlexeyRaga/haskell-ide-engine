@@ -25,13 +25,9 @@ steps:
     displayName: 'Create local bin folder'
 
   - script: |
-      echo $(Agent.HomeDirectory)
-      echo $(AGENT_HOMEDIRECTORY)
-      echo $(HOME)
-      echo "--------------------"
-      env
-      echo ##vso[task.prependpath]%AGENT_BUILDDIRECTORY%\.tmp\node_modules\.bin
+      echo ##vso[task.prependpath]$(HOME)/.local/bin
       echo $(PATH)
+      env
 
   - script: curl -sSL https://get.haskellstack.org/ | sh
     displayName: 'Setting up Stack'
